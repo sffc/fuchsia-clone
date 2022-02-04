@@ -156,7 +156,7 @@ impl<'a> GnTarget<'a> {
         }
 
         let package_root =
-            package_root.strip_prefix(project_root).expect("all crates are under FUCHSIA_DIR");
+            package_root.strip_prefix(project_root).expect(&format!("all crates are under FUCHSIA_DIR: {:?}: {:?}", package_root, project_root));
         assert_ne!(
             package_root.as_os_str(),
             "third_party/rust_crates",

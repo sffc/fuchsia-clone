@@ -325,6 +325,11 @@ pub fn write_rule<W: io::Write>(
         format!("aliased_deps = {{{}}}", aliased_deps.join("\n"))
     };
 
+    // Add environment variables normally set by Cargo. Full list:
+    // https://doc.rust-lang.org/cargo/reference/environment-variables.html#environment-variables-cargo-sets-for-crates
+    rustenv.add_cfg(format!("CARGO_PKG_NAME={}", target.name()));
+    rustenv.add_cfg(format!("CARGO_MANIFEST_DIR=\"+rebase_path(\"//{}\")+\"", target.package_root(project_root).display()));
+
     // GN root relative path
     let root_relative_path = format!(
         "//{}",

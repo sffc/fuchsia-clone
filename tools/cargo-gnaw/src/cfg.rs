@@ -32,6 +32,13 @@ pub fn target_to_gn_conditional(target: &str) -> Result<String, Error> {
         // depend on, so we use a simple exact match list that can be updated as needed.
         let (target_arch, target_os) = match target {
             "aarch64-apple-darwin" => ("aarch64", "macos"),
+            "thumbv6m-none-eabi" => ("TODOX", "TODOX"),
+            "thumbv7m-none-eabi" => ("TODOX", "TODOX"),
+            "thumbv7em-none-eabi" => ("TODOX", "TODOX"),
+            "thumbv7em-none-eabihf" => ("TODOX", "TODOX"),
+            "thumbv8m.base-none-eabi" => ("TODOX", "TODOX"),
+            "thumbv8m.main-none-eabi" => ("TODOX", "TODOX"),
+            "thumbv8m.main-none-eabihf" => ("TODOX", "TODOX"),
             // Return an error for unknown targets, to notify the dev that they should
             // update this list.
             _ => {
@@ -130,6 +137,8 @@ pub fn cfg_to_gn_conditional(cfg: &str) -> Result<String, Error> {
         Ok(String::from("current_cpu == \"arm64\""))
     } else if cfg == "target_arch = \"x86_64\"" {
         Ok(String::from("current_cpu == \"x64\""))
+    } else if cfg == "target_arch = \"wasm32\"" {
+        Ok(String::from("current_cpu == \"wasm\""))
     } else if cfg == "windows" {
         // don't support host builds on windows right now
         Ok(String::from("false"))

@@ -66,7 +66,7 @@ impl<'a> GnBuildGraph<'a> {
         {
             // check if this crate has a build script in it
             let mut build_script = package.targets.iter().find_map(|target| {
-                if GnRustType::try_from(&target.kind).unwrap() == GnRustType::BuildScript {
+                if GnRustType::try_from(&target.kind).expect(&format!("{:?}", target)) == GnRustType::BuildScript {
                     return Some(CustomBuildTarget {
                         dependencies: vec![],
                         path: target.src_path.clone(),
