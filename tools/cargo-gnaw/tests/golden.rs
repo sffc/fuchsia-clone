@@ -197,10 +197,11 @@ fn main() {
             })
             .expect("expected file read success");
         assert_eq!(
-            DisplayAsDebug(expected),
-            DisplayAsDebug(output),
-            "left: expected; right: actual: {:?}",
-            &test
+            DisplayAsDebug(&expected),
+            DisplayAsDebug(&output),
+            "left: expected; right: actual: {:?}\n\nGenerated content:\n----------\n{}\n----------\n",
+            &test,
+            &output
         );
     }
 
